@@ -1,0 +1,134 @@
+.buttonCustom {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  box-shadow: none;
+  color: #071926;
+  border: 2px solid #e3e6e8;
+}
+
+.buttonCustom svg {
+  margin-right: 8px;
+  margin-top: 2px;
+}
+
+/* GERAL */
+/* classe antd para todos os botões (pega o tamanho middle e todos os tipos de botão em geral - propriedades que não foram aceitas sem o :global) */
+.buttonCustom:global(.ant-btn) {
+  padding: 8px 24px;
+  font-size: 14px;
+}
+
+/* classe antd para todos os botões com hover */
+.buttonCustom:global(.ant-btn:hover) {
+  color: #32bcad;
+  border-color: #32bcad;
+}
+
+/* classe antd para todos os botões active */
+.buttonCustom:global(.ant-btn:active) {
+  border: 2px solid #005049;
+  color: #005049;
+}
+
+/* classe antd para todos os botões com size large */
+.buttonCustom:global(.ant-btn-lg) {
+  font-size: 16px;
+}
+
+/* classe antd para todos os botões disabled */
+.buttonCustom:global(.ant-btn[disabled]) {
+  background-color: #ffffff;
+  border-color: #e3e6e8;
+  color: #949da5;
+}
+
+/* BOTÃO DO TIPO PRIMARY */
+/* classe antd para botão primary */
+.buttonCustom:global(.ant-btn-primary) {
+  color: #ffffff;
+  border: none;
+}
+
+/* classe antd para botão primary com hover */
+.buttonCustom:global(.ant-btn-primary:hover) {
+  color: #ffffff;
+  background-color: #32bcad;
+  border: none;
+}
+
+/* classe antd para botão primary active */
+.buttonCustom:global(.ant-btn-primary:active) {
+  background-color: #005049;
+  color: #ffffff;
+  border: none;
+}
+
+/* classe antd para botão primary disabled */
+.buttonCustom:global(.ant-btn-primary[disabled]) {
+  background-color: #e3e6e8;
+}
+
+/* BOTÃO DO TIPO LINK */
+/* classe antd para botão link */
+.buttonCustom:global(.ant-btn-link) {
+  color: #00857a;
+  border: none;
+}
+
+/* classe antd para botão link com hover */
+.buttonCustom:global(.ant-btn-link:hover) {
+  color: #32bcad;
+}
+
+/* classe antd para botão link active */
+.buttonCustom:global(.ant-btn-link:active) {
+  color: #005049;
+  border: none;
+}
+
+/* classe antd para botão link disabled */
+.buttonCustom:global(.ant-btn-link[disabled]) {
+  background-color: transparent;
+}
+.buttonCustom:global(.ant-btn-link[disabled]):hover {
+  color: #949da5;
+}
+
+/* BOTÃO DO TIPO DASHED */
+/* classe antd para botão dashed */
+.buttonCustom:global(.ant-btn-dashed) {
+  border: dashed 2px #e3e6e8;
+}
+
+/* classe antd para botão dashed active */
+.buttonCustom:global(.ant-btn-dashed:active) {
+  border: dashed 2px #005049;
+}
+
+/* BOTÃO DO TIPO TEXT */
+
+/* classe antd para botão text */
+.buttonCustom:global(.ant-btn-text) {
+  background: none;
+  border: none;
+}
+
+/* classe antd para botão text com hover */
+.buttonCustom:global(.ant-btn-text:hover) {
+  color: #071926;
+  background-color: #f2f4f5;
+}
+
+/* classe antd para botão text active */
+.buttonCustom:global(.ant-btn-text:active) {
+  background-color: #e3e6e8;
+  color: #071926;
+  border: none;
+}
+
+/* classe antd para botão text disabled */
+.buttonCustom:global(.ant-btn-text[disabled]) {
+  background-color: transparent;
+  border: none;
+}

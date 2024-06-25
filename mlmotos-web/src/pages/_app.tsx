@@ -1,3 +1,4 @@
+import { PlatformProvider } from '@hooks/context/platformContext';
 import { ConfigProvider, theme } from 'antd';
 import { AuthProvider } from '../hooks/context/authContext';
 import { DarkModeProvider, useDarkMode } from '../hooks/context/darkModeContext';
@@ -7,7 +8,9 @@ import '../styles/globals.css';
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
     <DarkModeProvider>
-      <MyAppContent Component={Component} session={session} pageProps={pageProps} />
+      <PlatformProvider>
+        <MyAppContent Component={Component} session={session} pageProps={pageProps} />
+      </PlatformProvider>
     </DarkModeProvider>
   );
 }
@@ -22,7 +25,7 @@ const MyAppContent = ({ Component, session, pageProps }) => {
         token: {
           fontFamily: 'Montserrat',
           colorTextPlaceholder: '#707589',
-          colorBgBase: darkMode ? '#1D1E21' : '#FAFAFC '
+          colorBgBase: darkMode ? '#18191C' : '#FAFAFC '
         },
       }}
     >

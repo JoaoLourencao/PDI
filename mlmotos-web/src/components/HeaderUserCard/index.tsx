@@ -1,59 +1,75 @@
-import { useDarkMode } from '@hooks/context/darkModeContext'
-import { Dropdown, Menu } from 'antd'
-import Cookies from 'js-cookie'
-import { get } from 'lodash'
-import { useRouter } from 'next/router'
-import { HeaderButton } from '../HeaderButton'
-import { HeaderLoadingAvatar } from '../HeaderLoadingAvatar'
-import ArrowDown from '../Icons/ArrowDown'
-import styles from './styles.module.css'
+import { useDarkMode } from '@hooks/context/darkModeContext';
+import { Dropdown } from 'antd';
+import { useRouter } from 'next/router';
+import { useMemo, useState } from 'react';
+import { HeaderLoadingAvatar } from '../HeaderLoadingAvatar';
+import { HeaderUserAvatar } from '../HeaderUserAvatar';
+import { CustomMenu } from './components/CustomMenu';
+
+type PersonData = {
+  primaryEmail: string;
+  photo: string;
+  givenName: string;
+}
 
 type Props = {
-  personData: any
+  personData: PersonData | null;
 }
 
 export function HeaderUserCard({ personData }: Props) {
-  const router = useRouter()
+  const router = useRouter();
+  const { darkMode } = useDarkMode();
 
-  const handleLogout = () => {
-    Cookies.remove('access_token')
+  const cardStyles = useMemo(() => ({
+    headerText: "tw-text-dark-secondary"
+  }), [darkMode]);
 
-    router.replace('/login')
+  const [isOpen, setIsOpen] = useState(false);
+
+  const baseClass = 'tw-rounded-full';
+  const color = darkMode ? 'tw-border-[#E5E9ED]' : 'tw-border-[#157C8A]';
+  const colorSecondary = darkMode ? 'tw-border-[#E5E9ED33]' : 'tw-border-[#157C8A33]';
+
+  const className1 = isOpen ? `tw-border-4 ${colorSecondary} ${baseClass}` : ''
+  const className2 = isOpen ? `tw-border-2 ${color} ${baseClass}` : ''
+
+  if (!personData) {
+    return <HeaderLoadingAvatar image={personData.photo} name={personData.givenName} />;
   }
 
-  const menu = (
-    <Menu>
-      <Menu.Item key="0" className={styles.menuCardUsers}>
-        <HeaderButton text="Logout" type="link" className="hover:tw-no-underline" onclick={handleLogout} />
-      </Menu.Item>
-    </Menu>
-  )
+  const { primaryEmail, photo, givenName } = personData;
 
-  // personData = undefined
-
-  const image = get(personData, 'photo', '') as string
-  const name = get(personData, 'givenName', '') as string
-
-  const { darkMode } = useDarkMode()
-  const headerText = "tw-text-white"
-
-  if (!personData) return <HeaderLoadingAvatar menu={menu} image={image} name={name} />
+  const menu = <CustomMenu profile={personData} />
 
   return (
-    <div className="tw-flex tw-items-center">
-      <div className="tw-mr-12">
-        <div className="tw-flex">
-          <h3 className={`${headerText} tw-leading-normal tw-text-base tw-font-semibold`}>{name}</h3>
-          <Dropdown overlay={menu} trigger={['click']} className="tw-ml-8">
-            <button className="tw-p-2">
-              <ArrowDown />
-            </button>
-          </Dropdown>
+    <>
+      <Dropdown overlay={menu} trigger={['click']} className='tw-cursor-pointer tw-hidden md:tw-flex' onOpenChange={setIsOpen}>
+        <div className="tw-flex tw-items-center">
+          <div className="tw-mr-12">
+            <h3 className={`${cardStyles.headerText} tw-leading-normal tw-text-base tw-font-semibold`}>{givenName}</h3>
+          </div>
+          <div className={className1}>
+            <div className={className2}>
+              <HeaderUserAvatar src={photo} alt={givenName} isOpen={isOpen} />
+            </div>
+          </div>
         </div>
-      </div>
-      <div className="">
-        {/* <HeaderUserAvatar src={image} alt={name} /> */}
-      </div>
-    </div>
-  )
+      </Dropdown>
+      <Dropdown overlay={menu} trigger={['click']} className='tw-cursor-pointer tw-block md:tw-hidden tw-m-24' onOpenChange={setIsOpen}>
+        <div className="tw-flex tw-items-center tw-flex-col tw-gap-6">
+          <div className={className1}>
+            <div className={className2}>
+              <HeaderUserAvatar src={photo} alt={givenName} isOpen={isOpen} />
+            </div>
+          </div>
+          <div>
+            <h3 className={`${cardStyles.headerText} tw-leading-normal tw-text-base tw-font-semibold`}>{givenName}</h3>
+          </div>
+          <div>
+            <p className='tw-text-xs tw-font-medium tw-text-light-slate-gray'>{primaryEmail}</p>
+          </div>
+        </div>
+      </Dropdown>
+    </>
+  );
 }

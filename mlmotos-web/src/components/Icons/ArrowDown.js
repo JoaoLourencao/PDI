@@ -8,7 +8,7 @@ const SvgArrowDown = (props) => (
     {...props}
   >
     <path
-      stroke="#fff"
+      stroke="#071926"
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={2}

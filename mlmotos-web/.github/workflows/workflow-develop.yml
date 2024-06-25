@@ -1,0 +1,85 @@
+name: Build and Deploy to Coolhunting WEB
+
+on:
+  push:
+    branches: [ "develop" ]
+
+env:
+  PROJECT_ID: ${{ secrets.GKE_PROJECT_HMG }} # Project GCP ID
+  GAR_LOCATION: us-central1 # Region of the Artifact Registry
+  GKE_CLUSTER: cluster-coolhunting  # Cluster name
+  GKE_ZONE: us-central1-c   # Cluster zone
+  DEPLOYMENT_NAME: coolhunting-web # Deployment name Kubernetes
+  NAMESPACE_NAME: coolhunting # Namespace name Kubernetes
+  REPOSITORY: coolhunting # Docker repository
+  IMAGE: coolhunting-web # Image Docker
+
+jobs:
+  build-deploy:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+    environment: development
+
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    # Authentication via credentials json
+    - id: 'auth'
+      uses: 'google-github-actions/auth@v2'
+      with:
+        credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
+
+    # Configure Authentication to Google Artifact Registry
+    - name: Docker configuration
+      run: |-
+        docker login -u _json_key --password-stdin https://$GAR_LOCATION-docker.pkg.dev < "${{ env.GOOGLE_APPLICATION_CREDENTIALS }}"
+
+    # Get the GKE credentials so we can deploy to the cluster
+    - name: Set up GKE credentials
+      uses: google-github-actions/get-gke-credentials@v2
+      with:
+        cluster_name: ${{ env.GKE_CLUSTER }}
+        location: ${{ env.GKE_ZONE }}
+
+    # Build the Docker image
+    - name: Build and Publish
+      run: |-
+        BRANCH_NAME=$(echo "$GITHUB_REF" | sed 's/refs\/heads\///')
+        COMMIT_HASH="$(echo $GITHUB_SHA | cut -c1-7)"
+        DOCKER_TAG="$BRANCH_NAME"_"$COMMIT_HASH"
+
+        docker build -t "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:$DOCKER_TAG" .
+        docker push "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:$DOCKER_TAG"
+
+    # Deploy the Docker image to the GKE cluster
+    - name: Deploy
+      run: |-
+
+        BRANCH_NAME=$(echo "$GITHUB_REF" | sed 's/refs\/heads\///')
+        COMMIT_HASH="$(echo $GITHUB_SHA | cut -c1-7)"
+        DOCKER_TAG="$BRANCH_NAME"_"$COMMIT_HASH"
+
+        kubectl set image deployment/$DEPLOYMENT_NAME $DEPLOYMENT_NAME=$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:$DOCKER_TAG -n $NAMESPACE_NAME
+        kubectl rollout status deployment/$DEPLOYMENT_NAME -n $NAMESPACE_NAME
+
+    - name: Send message to Google Chat
+      env:
+        GOOGLE_CHAT_WEBHOOK_URL: ${{ secrets.GOOGLE_CHAT_WEBHOOK_URL }}
+      run: |
+        curl -X POST -H 'Content-Type: application/json; charset=UTF-8' \
+        -d '{"text": "New deploy on Coolhunting Web!"}' \
+        'https://chat.googleapis.com/v1/spaces/AAAAaq2yrls/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=OBChQcHqOsahhkaX06Vu9Xeck3Cj74UJNu0Qgrwm3Ic'
+
+    - name: Send failure message to Google Chat
+      if: failure()
+      env:
+        GOOGLE_CHAT_WEBHOOK_URL: ${{ secrets.GOOGLE_CHAT_WEBHOOK_URL }}
+      run: |
+        curl -X POST -H 'Content-Type: application/json; charset=UTF-8' \
+        -d '{"text": "Coolhunting Web pipeline failed, check logs!"}' \
+        'https://chat.googleapis.com/v1/spaces/AAAAaq2yrls/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=OBChQcHqOsahhkaX06Vu9Xeck3Cj74UJNu0Qgrwm3Ic'

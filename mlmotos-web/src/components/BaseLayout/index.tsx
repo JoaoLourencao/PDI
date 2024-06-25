@@ -1,4 +1,5 @@
 import { CustomHeader } from '@components/CustomHeader'
+import { useDarkMode } from '@hooks/context/darkModeContext'
 import { Layout } from 'antd'
 import Head from 'next/head'
 import { CustomSidebar } from '../CustomSidebar'
@@ -12,6 +13,7 @@ type Props = {
 
 export function BaseLayout({ title, children }: Props) {
   const pageTitle = title ? `${title} | ML Motos` : 'ML Motos'
+  const { darkMode } = useDarkMode()
 
   return (
     <Layout className={styles.customLayout} >
@@ -20,10 +22,10 @@ export function BaseLayout({ title, children }: Props) {
         <link rel="shortcut icon" href="/favicon.ico" />
       </Head>
       <CustomHeader />
-      <Layout>
-        <CustomSidebar className="tw-hidden md:tw-block" />
-        <Layout.Content className='tw-bg-half-black'>
-          <div className="tw-mx-12 md:tw-mx-42 tw-my-42">{children}</div>
+      <Layout className={darkMode ? 'tw-bg-dark-eerie-black' : 'tw-bg-light-ghost-white'}>
+        <CustomSidebar className="tw-hidden lg:tw-block" />
+        <Layout.Content className='tw-overflow-auto tw-h-[92vh]'>
+          <div className="tw-px-24 tw-py-[33px] lg:tw-px-42 lg:tw-py-58">{children}</div>
         </Layout.Content>
       </Layout>
     </Layout>

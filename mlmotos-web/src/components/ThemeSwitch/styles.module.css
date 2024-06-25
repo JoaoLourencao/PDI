@@ -1,0 +1,55 @@
+.customSwitcher :global(.ant-switch-handle::before) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  transition: all 0.3s ease-in-out;
+  border-radius: 100px;
+}
+
+.customSwitcher :global(.ant-switch.ant-switch-checked .ant-switch-handle) {
+  inset-inline-start: calc(100% - 30px);
+}
+
+.customSwitcher :global(.ant-switch) {
+  height: 32px;
+  min-width: 52px;
+}
+
+
+.customSwitcher :global(.ant-switch .ant-switch-handle) {
+  box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.04), 0px 3px 8px 0px rgba(0, 0, 0, 0.15), 0px 3px 1px 0px rgba(0, 0, 0, 0.06);  width: 28px;
+  border-radius: 100px;
+  height: 28px;
+  width: 28px;
+  padding: 5px;
+}
+
+/* Quando o switch está ativo */
+.customSwitcher :global(.ant-switch.active .ant-switch-handle::before) {
+  background-color: #1E2024;
+  content: url('data:image/svg+xml;utf8,<svg  width="14" height="30" viewBox="0 0 16 12" fill="%23ffffff" xmlns="http://www.w3.org/2000/svg"><path id="Path" fill-rule="evenodd" clip-rule="evenodd" d="M9.00002 8.99996C10.4217 7.54028 10.773 5.34485 9.87789 3.51442C9.82188 3.38116 9.84742 3.22758 9.94353 3.11962C10.0396 3.01165 10.1892 2.96851 10.3281 3.00871C11.3972 3.2843 12.3732 3.84104 13.1545 4.62113C15.5729 6.97709 15.6239 10.8473 13.2686 13.2662C10.8498 15.6218 6.97962 15.5711 4.62345 13.1529C3.8429 12.3721 3.28586 11.3964 3.01028 10.3273C2.96987 10.1882 3.01308 10.0384 3.12129 9.94217C3.2295 9.84598 3.38341 9.82064 3.51674 9.87707C5.34636 10.7718 7.54079 10.4207 9.00002 8.99996Z"/></svg>');
+}
+
+/* Quando o switch está inativo */
+.customSwitcher :global(.ant-switch.inactive .ant-switch-handle::before) {
+  background-color: #fff;
+  content: url('data:image/svg+xml;utf8,<svg  width="14" height="30" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="Group"><g id="Group_2"><g id="Path"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.6517 6.34835C13.1161 7.81281 13.1161 10.1872 11.6517 11.6517C10.1872 13.1161 7.81281 13.1161 6.34835 11.6517C4.88388 10.1872 4.88388 7.81281 6.34835 6.34835C7.81281 4.88388 10.1872 4.88388 11.6517 6.34835Z" fill="%2302AFBC"/><path d="M11.6517 6.34835C13.1161 7.81281 13.1161 10.1872 11.6517 11.6517C10.1872 13.1161 7.81281 13.1161 6.34835 11.6517C4.88388 10.1872 4.88388 7.81281 6.34835 6.34835C7.81281 4.88388 10.1872 4.88388 11.6517 6.34835" stroke="%2303AFBC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></g><path id="Path_2" d="M9 3V1.5" stroke="%2302AFBC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path id="Path_3" d="M9 16.5V15" stroke="%2302AFBC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path id="Path_4" d="M13.77 4.22999L14.3025 3.6975" stroke="%2302AFBC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path id="Path_5" d="M3.6975 14.3025L4.22999 13.77" stroke="%2302AFBC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path id="Path_6" d="M15 9H16.5" stroke="%2302AFBC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path id="Path_7" d="M1.5 9H3" stroke="%2302AFBC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path id="Path_8" d="M13.77 13.77L14.3025 14.3025" stroke="%2302AFBC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path id="Path_9" d="M3.6975 3.6975L4.22999 4.22999" stroke="%2302AFBC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></g></g></svg>');
+}
+
+.customSwitcher :global(.ant-switch.active) {
+  background-color: #E3E7EB;
+}
+
+.customSwitcher :global(.ant-switch.ant-switch-checked:hover:not(.ant-switch-disabled)){
+  background-color: #02AFBC;
+}
+
+.customSwitcher :global(.ant-switch.inactive) {
+  background-color: #02AFBC;
+}
+
+.customSwitcher :global(.ant-switch.inactive) {
+  background-color: #02AFBC;
+}

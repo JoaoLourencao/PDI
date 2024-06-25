@@ -17,19 +17,7 @@ module.exports = {
       lg: '1024px',
       xl: '1440px',
       xxl: '1920px',
-    },
-    colors: {
-      primary: '#FF0000',
-      secondary: '#D3D3D3',
-      "nero": '#141517',
-      "half-black": '#18191C',
-      "alice-blue": '#F2F4F5',
-      error: '#e60536',
-      success: '#006940',
-      warning: '#faad14',
-      black: '#000000',
-      white: '#ffffff',
-      whatsapp: '#25D366',
+      xxxl: '3000px',
     },
     fontFamily: {
       sans: [
@@ -122,6 +110,43 @@ module.exports = {
       full: '9999px'
     },
     extend: {
+      boxShadow: {
+        '3xl': '0px 0px 0px 3px rgba(21, 124, 138, 0.20)',
+        '3xl-dark': '0px 0px 0px 4px rgb(2, 175, 188)',
+      },
+      keyframes: {
+        pulse: {
+          '0%, 100%': { opacity: 1 },
+          '50%': { opacity: 0.5 },
+        },
+      },
+      animation: {
+        pulse: 'pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+      },
+      colors: {
+        dark: {
+          primary: '#EC0A0F',
+          secondary: '#E3E7EB',
+          nero: '#141517',
+          "half-black": '#18191C',
+          error: '#FC8694',
+          success: '#88F7A2',
+          warning: '#FCD386',
+          woodsmoke: '#141517',
+          "eerie-black": '#18191C',
+          shark: '#1E2024 ',
+          "baltic-sea": '#26282E',
+          tuna: '#353840',
+          "oslo-gray": '#7F8794',
+          "primary-blue": '#83D2DC',
+          'onyx': '#32343B',
+          ginger: '#FFB82D',
+          'charleston-green': '#26282D',
+        }
+      },
+      backgroundImage: {
+        'stars-background': "url('/assets/images/bg-stars.png')",
+      },
       screens: {
         '2xl': '1920px',
         '3xl': '2048px'
@@ -152,5 +177,24 @@ module.exports = {
       }
     }
   },
-  plugins: []
+  plugins: [
+    function ({ addUtilities }) {
+      addUtilities({
+        '.line-clamp-2': {
+          display: '-webkit-box',
+          '-webkit-line-clamp': '2',
+          '-webkit-box-orient': 'vertical',
+          overflow: 'hidden',
+          'text-overflow': 'ellipsis',
+        },
+        '.line-clamp-4': {
+          display: '-webkit-box',
+          '-webkit-line-clamp': '4',
+          '-webkit-box-orient': 'vertical',
+          overflow: 'hidden',
+          'text-overflow': 'ellipsis',
+        },
+      });
+    },
+  ]
 }

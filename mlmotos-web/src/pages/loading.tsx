@@ -8,7 +8,7 @@ export default function Loading() {
   const router = useRouter()
 
   useEffect(() => {
-    const redirect = () => router.push((router.query.redirect as string) || ('/geral' as string))
+    const redirect = () => router.push((router.query.redirect as string) || ('/home' as string))
     if (router.query.delay) {
       setTimeout(() => {
         redirect()

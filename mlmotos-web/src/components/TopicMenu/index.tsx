@@ -12,7 +12,7 @@ export function TopicMenu() {
   const textColor = darkMode ? "tw-text-dark-oslo-gray" : "tw-text-light-slate-gray"
   const stylesMobileMenu = darkMode && styles.mobileMenuDark
 
-  const menuItems = getMenuItems(selectedKeys[0].split('/')[1], darkMode, textColorActive, textColor)
+  const menuItems = getMenuItems(selectedKeys[0].split('/')[2], darkMode, textColorActive, textColor)
 
   return (
     <div
@@ -21,8 +21,8 @@ export function TopicMenu() {
       <Menu
         className={`${sideBarBg} tw-border-0`}
         mode="inline"
-        defaultSelectedKeys={['/home']}
-        selectedKeys={[`/${selectedKeys[0].split('/')[1]}`]}
+        defaultSelectedKeys={['/dashboard/home']}
+        selectedKeys={[`/${selectedKeys[0].split('/')[2]}`]}
         items={menuItems}
       />
     </div>

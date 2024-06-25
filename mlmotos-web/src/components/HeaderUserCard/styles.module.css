@@ -1,10 +1,11 @@
-li.menuCardUsers:hover {
-  background-color: transparent;
+.menuCardUsers{
+  padding: 0px!important;
+  border-radius: 12px!important;
 }
 
 .menuCardUsers span {
   font-size: 12px;
-  color: #071926;
+  color: #E3E7EB;
   font-weight: 500;
 }
 

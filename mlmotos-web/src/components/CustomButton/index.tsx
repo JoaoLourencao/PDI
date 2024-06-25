@@ -1,30 +1,31 @@
 import { CustomLoading } from '@components/CustomLoading';
-import { Button } from 'antd';
-import { BaseButtonProps } from 'antd/lib/button/button';
+import { Button, ButtonProps } from 'antd';
 import { ReactNode } from 'react';
 
-interface Props extends BaseButtonProps {
+
+interface Props extends ButtonProps {
   onClick?: () => void;
   text: ReactNode;
   customClass?: string;
 }
 
 const CustomButton = ({ text, onClick, customClass, disabled, loading, ...rest }: Props) => {
-  const buttonClassName = !disabled ? 'tw-bg-primary tw-w-full tw-rounded-full' : 'tw-bg-white tw-w-full tw-rounded-full';
+
+  const buttonClassName = !disabled ? 'tw-bg-dark-primary tw-w-full tw-rounded tw-border-none' : 'tw-bg-dark-shark tw-w-full tw-rounded';
 
   return (
     <Button
       {...rest}
       onClick={onClick}
-      className={`${buttonClassName} ${customClass}`}
-      type="primary"
-      shape="default"
+      className={buttonClassName + customClass}
+      type="text"
+      disabled={disabled}
       loading={loading}
     >
       {loading ? (
         <CustomLoading />
       ) : (
-        <p className='tw-font-semibold tw-text-secondary'>{text}</p>
+        <p className='tw-font-semibold tw-text-dark-secondary'>{text}</p>
       )}
     </Button>
   );

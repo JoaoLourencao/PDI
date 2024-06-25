@@ -1,5 +1,5 @@
-import Graph from "@components/Icons/Graph";
-import GraphOutline from "@components/Icons/GraphOutline";
+import { CustomIcon } from "@components/CustomIcon";
+import { Tooltip } from "antd";
 import Link from "next/link";
 
 type MenuItem = {
@@ -20,7 +20,8 @@ const createMenuItem = (
   { href, label, iconActive, iconInactive }: MenuItemConfig,
   selectedKeys: string,
   textColorActive: string,
-  textColor: string
+  textColor: string,
+  darkMode: boolean
 ): MenuItem => ({
   label: (
     <Link href={href} className={href.includes(selectedKeys) ? textColorActive : textColor}>
@@ -28,7 +29,13 @@ const createMenuItem = (
     </Link>
   ),
   key: href,
-  icon: href.includes(selectedKeys) ? iconActive : iconInactive,
+  icon: (
+    <Tooltip title={label} placement="right" color={darkMode ? '#32343B' : '#1D1E21'} key={href} destroyTooltipOnHide>
+      <Link href={href} className={href.includes(selectedKeys) ? textColorActive : textColor}>
+        {href.includes(selectedKeys) ? iconActive : iconInactive}
+      </Link>
+    </Tooltip>
+  ),
 });
 
 export const getMenuItems = (
@@ -37,28 +44,30 @@ export const getMenuItems = (
   textColorActive: string,
   textColor: string
 ): MenuItem[] => {
+  const activeColor = darkMode ? "tw-stroke-dark-primary" : "tw-stroke-light-primary"
+  const inactiveColor = darkMode ? "tw-stroke-dark-oslo-gray" : "tw-stroke-light-slate-gray"
   const menuItemsConfig: MenuItemConfig[] = [
     {
-      href: "/geral",
+      href: "/dashboard/home",
       label: "Início",
-      iconActive: <GraphOutline />,
-      iconInactive: <Graph />,
+      iconActive: <CustomIcon name="IconHome" strokeClassName={activeColor} />,
+      iconInactive: <CustomIcon name="IconHome" strokeClassName={inactiveColor} />,
     },
     {
-      href: "/profile/list",
-      label: "Lista de Perfis",
-      iconActive: <GraphOutline />,
-      iconInactive: <Graph />,
+      href: "/dashboard/relatorios",
+      label: "Relatórios",
+      iconActive: <CustomIcon name="IconReports" strokeClassName={activeColor} />,
+      iconInactive: <CustomIcon name="IconReports" strokeClassName={inactiveColor} />,
     },
     {
-      href: "/social-cannon",
-      label: "Canhão Social",
-      iconActive: <GraphOutline />,
-      iconInactive: <Graph />,
-    },
+      href: "/dashboard/configuracoes",
+      label: "Configurações",
+      iconActive: <CustomIcon name="IconSettings" strokeClassName={activeColor} />,
+      iconInactive: <CustomIcon name="IconSettings" strokeClassName={inactiveColor} />,
+    }
   ];
 
   return menuItemsConfig.map((config) =>
-    createMenuItem(config, selectedKeys, textColorActive, textColor)
+    createMenuItem(config, selectedKeys, textColorActive, textColor, darkMode)
   );
 };

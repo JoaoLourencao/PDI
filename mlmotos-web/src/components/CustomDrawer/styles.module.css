@@ -1,0 +1,72 @@
+.collapseStyle :global(.ant-collapse-header), .collapseStyleDark :global(.ant-collapse-header) {
+  padding: 16px 42px!important;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 0 0 0 0!important;
+} 
+
+.collapseStyle :global(.ant-collapse-item > .ant-collapse-header) {
+  color: #252B42!important;
+  background: #F5F5F7!important;
+} 
+
+.collapseStyle :global(.ant-collapse-item-active > .ant-collapse-header) {
+  color: #157C8A!important;
+  background: #EDF4F5!important;
+} 
+
+.collapseStyleDark :global(.ant-collapse-item > .ant-collapse-header) {
+  color: #E3E7EB!important;
+  background: #1E2024!important;
+} 
+
+.collapseStyleDark :global(.ant-collapse-item-active > .ant-collapse-header) {
+  color: #83D2DC!important;
+  background: #83D2DC1A!important;
+} 
+
+.collapseStyle :global(.ant-collapse-content-box), .collapseStyleDark :global(.ant-collapse-content-box) {
+  padding: 42px 42px!important;
+}
+
+.subCollapse :global(.ant-collapse-header), .subCollapseDark :global(.ant-collapse-header){
+  padding: 0px!important;
+  font-size: 14px;
+  font-weight: 500;
+  margin-left: 24px;
+  margin-bottom: 24px;
+} 
+
+.subCollapse :global(.ant-collapse-item > .ant-collapse-header) {
+  color: #707589!important;
+  background: unset!important;
+} 
+
+.subCollapseDark :global(.ant-collapse-item > .ant-collapse-header) {
+  color: #7F8794!important;
+  background: unset!important;
+}
+
+.subCollapse :global(.ant-collapse-item-active > .ant-collapse-header) {
+  padding: 12px 24px!important;
+  margin-left: 0px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #157C8A!important;
+  background: #83D2DC1A!important;
+  border-radius: 0px 8px 8px 0px!important;
+} 
+
+.subCollapseDark :global(.ant-collapse-item-active > .ant-collapse-header) {
+  padding: 12px 24px!important;
+  margin-left: 0px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #83D2DC!important;
+  background: #83D2DC1A!important;
+  border-radius: 0px 8px 8px 0px!important;
+}
+
+.subCollapse :global(.ant-collapse-content-box), .subCollapseDark :global(.ant-collapse-content-box){
+  padding: 0px 24px 24px 24px!important;
+}

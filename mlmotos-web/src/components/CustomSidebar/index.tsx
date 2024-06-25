@@ -1,5 +1,7 @@
-import ArrowSideLeft from '@components/Icons/ArrowSidebarLeft'
-import ArrowSideRight from '@components/Icons/ArrowSidebarRight'
+import ArrowSidebarLeftDark from '@components/Icons/ArrowSidebarLeftDark'
+import ArrowSidebarLeftLight from '@components/Icons/ArrowSidebarLeftLight'
+import ArrowSidebarRightDark from '@components/Icons/ArrowSidebarRightDark'
+import ArrowSidebarRightLight from '@components/Icons/ArrowSidebarRightLight'
 import { useDarkMode } from '@hooks/context/darkModeContext'
 import { getMenuItems } from '@utils/menuItems'
 import { Layout, Menu } from 'antd'
@@ -14,23 +16,16 @@ type Props = {
 function CustomMenu({ role = 'admin' }) {
   const { darkMode } = useDarkMode()
   const selectedKeys = [location.pathname]
-  const sideBarBg = "tw-bg-nero"
-  const textColorActive = "tw-text-nero"
-  const textColor = "tw-text-white"
-
-  console.log(selectedKeys[0].split('/')[1])
-  console.log(selectedKeys[0])
-
-  const menuItems = getMenuItems(selectedKeys[0].split('/')[1], darkMode, textColorActive, textColor)
-
-  if (selectedKeys[0].includes('/profile'))
-    selectedKeys.push('/profile/list')
+  const sideBarBg = darkMode ? "tw-bg-dark-woodsmoke" : "tw-bg-light-white"
+  const textColorActive = darkMode ? "tw-text-dark-primary" : "tw-text-light-primary"
+  const textColor = darkMode ? "tw-text-dark-oslo-gray" : "tw-text-light-slate-gray"
+  const menuItems = getMenuItems(selectedKeys[0].split('/')[2], darkMode, textColorActive, textColor)
 
   return (
     <Menu
       mode="inline"
-      defaultSelectedKeys={['/dashboard']}
-      selectedKeys={selectedKeys}
+      defaultSelectedKeys={['/dashboard/home']}
+      selectedKeys={[`/${selectedKeys[0].split('/')[2]}`]}
       items={menuItems}
       className={`${sideBarBg} tw-border-0`}
     />
@@ -42,9 +37,10 @@ export function CustomSidebar({ className }: Props) {
   const [isCollapseLocalStorage, setIsCollapseLocalStorage] = useLocalStorage('sider-collapse', false)
 
   const { darkMode } = useDarkMode()
-  const sideBarBg = "tw-bg-nero"
-  const sideBarBorder = "tw-border-r-gray"
-  const stylesSider = darkMode && styles.siderDark
+  const sideBarBg = darkMode ? "tw-bg-dark-woodsmoke tw-border-r-dark-baltic-sea" : "tw-bg-light-white tw-border-r-white-gainsboro"
+  const stylesSider = darkMode ? styles.siderDark : ''
+  const arrowSideLeft = darkMode ? <ArrowSidebarLeftDark /> : <ArrowSidebarLeftLight />
+  const arrowSideRight = darkMode ? <ArrowSidebarRightDark /> : <ArrowSidebarRightLight />
 
   useEffect(() => {
     setMounted(true)
@@ -55,12 +51,12 @@ export function CustomSidebar({ className }: Props) {
   return (
     <Layout.Sider
       collapsed={isCollapseLocalStorage}
-      breakpoint={"xl"}
-      className={`${sideBarBg} ${sideBarBorder} tw-overflow-auto tw-border-r-[1px] ${styles.sider} ${stylesSider} ${className}`}
+      breakpoint={!isCollapseLocalStorage ? 'xl' : null}
+      className={`${sideBarBg} tw-overflow-auto tw-border-r-[1px] ${styles.sider} ${stylesSider} ${className}`}
       collapsible
       collapsedWidth={100}
-      width={300}
-      trigger={isCollapseLocalStorage ? <ArrowSideRight /> : <ArrowSideLeft />}
+      width={342}
+      trigger={isCollapseLocalStorage ? arrowSideRight : arrowSideLeft}
       onCollapse={(collapsed) => {
         setIsCollapseLocalStorage(collapsed)
       }}>

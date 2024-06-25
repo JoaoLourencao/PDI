@@ -1,0 +1,14 @@
+.menuCardUsers{
+  padding: 0px!important;
+  border-radius: 12px!important;
+}
+
+.menuCardUsers span {
+  font-size: 12px;
+  color: #E3E7EB;
+  font-weight: 500;
+}
+
+.menuCardUsers span:hover {
+  color: #00857a;
+}
